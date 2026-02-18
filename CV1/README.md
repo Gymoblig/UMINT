@@ -12,7 +12,7 @@ $$f(x) = \sum_{i=1}^{n} ( -(x_i - x_0) \cdot \sin(\sqrt{|x_i - x_0|}) + y_0 )$$
 **Parametre v našej implementácii:**
 - 🎯 **Posun $x_0 = 30$**: Posúva globálne minimum mimo stred súradnicovej sústavy.
 - 📐 **Vertikálny posun $y_0 = 100$**: Zvyšuje celkovú hodnotu fitness.
-- 🌐 **Globálne optimum**: Nachádza sa približne v bode $x \approx -834.72$.
+- 🌐 **Globálne optimum**: Nachádza sa približne v bode $x \approx -864.72$.
 
 
 
