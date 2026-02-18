@@ -13,7 +13,7 @@ Projekt je rozdelený na hlavné časti: implementácie úloh (CV), zdieľané k
 * 🛠️ **CV2**: (Pripravuje sa)
 * 🛠️ **CV3**: (Pripravuje sa)
 
-### ⚙️ Knižnice a nástroje
+### ⚙️ Knižnice a nástroje (Python)
 * **[libs/Genetic-toolbox](./libs/Genetic-toolbox)** alebo **[https://github.com/STU-FEI-OUI/Genetic-toolbox](https://github.com/STU-FEI-OUI/Genetic-toolbox)**: Nástroje pre prácu s genetickými algoritmami.
 * **[libs/UMINT-GA](./libs/UMINT-GA)**  alebo **[https://github.com/STU-FEI-OUI/UMINT-GA](https://github.com/STU-FEI-OUI/UMINT-GA)**: Špecifické knižnice pre evolučné výpočty a testovacie funkcie.
 
