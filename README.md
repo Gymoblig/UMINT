@@ -1,40 +1,40 @@
-# UMINT - Umela inteligencia
+# 🧠 UMINT - Umelá inteligencia
 
-Tento repozitar sluzi na evidenciu a spravu rieseni zadani z predmetu Umela inteligencia (UMINT). Projekt je strukturovany podla jednotlivych cviceni a obsahuje porovnania implementacii v jazykoch MATLAB a Python.
+Tento repozitár slúži na evidenciu a správu riešení zadaní z predmetu Umelá inteligencia (UMINT). Projekt je štruktúrovaný podľa jednotlivých cvičení a obsahuje porovnania implementácií v jazykoch MATLAB a Python. 📈
 
-## Struktura projektu
+## 📂 Štruktúra projektu
 
- Projekt je rozdeleny na hlavne casti: implementacie uloh (CV), zdielane kniznice (libs) a podklady k prednaskam.
+Projekt je rozdelený na hlavné časti: implementácie úloh (CV), zdieľané knižnice (libs) a podklady k prednáškam.
 
-### Cvicenia
-* **[CV1](./CV1)**: Optimalizacia a Hill Climbing (Schwefelova funkcia).
-    * [Matlab](./CV1/Matlab): Implementacie v prostredi MATLAB.
-    * [Python](./CV1/Python): Portovane riesenia v jazyku Python.
-* **CV2**: (Pripravuje sa)
-* **CV3**: (Pripravuje sa)
+### Cvičenia
+* 🏔️ **[CV1](./CV1)**: Optimalizácia a Hill Climbing (Schwefelova funkcia).
+    * [Matlab](./CV1/Matlab): Implementácie v prostredí MATLAB.
+    * [Python](./CV1/Python): Portované riešenia v jazyku Python.
+* 🛠️ **CV2**: (Pripravuje sa)
+* 🛠️ **CV3**: (Pripravuje sa)
 
-### Kniznice a nastroje
-* **[libs/Genetic-toolbox](./libs/Genetic-toolbox)**: Nastroje pre pracu s genetickymi algoritmami.
-* **[libs/UMINT-GA](./libs/UMINT-GA)**: Specificke kniznice pre evolucne vypocty a testovacie funkcie.
+### ⚙️ Knižnice a nástroje
+* **[libs/Genetic-toolbox](./libs/Genetic-toolbox)**: Nástroje pre prácu s genetickými algoritmami.
+* **[libs/UMINT-GA](./libs/UMINT-GA)**: Špecifické knižnice pre evolučné výpočty a testovacie funkcie.
 
-## Prehlad riesenych uloh
+## 📝 Prehľad riešených úloh
 
-### CV1: Lokalna optimalizacia
-Zamerane na hladanie extremov ucelovych funkcii v 1D a 2D priestore.
-- Vizualizacia Schwefelovej funkcie (testfn3c).
-- Hill Climbing (deterministicky s fixnym krokom).
-- Stochasticky Hill Climbing (vyuzitie Gaussovho sumu).
-- Multi-start strategia pre najdenie globalneho minima.
+### CV1: Lokálna optimalizácia
+Zamerané na hľadanie extrémov účelových funkcií v 1D a 2D priestore.
+- Vizualizácia Schwefelovej funkcie (testfn3c).
+- 🚶 Hill Climbing (deterministický s fixným krokom).
+- 🎲 Stochastický Hill Climbing (využitie Gaussovho šumu).
+- 🎯 Multi-start stratégia pre nájdenie globálneho minima.
 
-## Technicke poziadavky
+## 💻 Technické požiadavky
 
 ### MATLAB
-- Vyziadane zakladne toolboxy pre optimalizaciu a vizualizaciu (Optimization Toolbox).
+- Vyžiadané základné toolboxy pre optimalizáciu a vizualizáciu (Optimization Toolbox).
 
 ### Python
-- Verzia 3.8 a vyssia.
-- Kniznice: `numpy`, `matplotlib`
+- Verzia 3.8 a vyššia.
+- Knižnice: `numpy`, `matplotlib`.
 
-Instalacia potrebnych Python balikov:
+Inštalácia potrebných Python balíkov:
 ```bash
 pip install numpy matplotlib
