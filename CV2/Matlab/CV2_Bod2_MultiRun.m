@@ -3,9 +3,9 @@ D = 10;
 num = 100;
 SPACE_A = [ones(1,D)*(-1000); ones(1,D)*1000];
 Amp = [ones(1,D)];
-max_gen = 300; 
+max_gen = 500; 
 
-run = 5;
+run = 10;
 
 % Príprava grafu
 figure(2); clf; hold on;

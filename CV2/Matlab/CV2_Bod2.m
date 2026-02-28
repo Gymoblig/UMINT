@@ -7,7 +7,7 @@ pop = genrpop(num, SPACE_A);
 
 Amp = [ones(1,D)];
 
-max_gen = 500; 
+max_gen = 5000; 
 
 fitness_history = [];
 y = testfn3c(pop);  
