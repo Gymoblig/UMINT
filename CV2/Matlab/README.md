@@ -18,7 +18,7 @@ Konfiguracia algoritmu, ktora preukazala najlepsiu schopnost konvergovat k teore
 
 ![Priebeh fitness hlavneho behu](img/1.png)
 
-![Priebeh fitness hlavneho behu 10 krát](img/1_10run.png)
+![Priebeh fitness hlavneho behu 10 krát](img/1_10RUN.png)
 
 ---
 
