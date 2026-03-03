@@ -1,79 +1,101 @@
-% Parametre 10-D úlohy
+%% Spoločné parametre 10-D úlohy
 D = 10; 
-num = 100;
 SPACE_A = [ones(1,D)*(-1000); ones(1,D)*1000];
-Amp = [ones(1,D)];
-max_gen = 500; 
+Amp = ones(1,D);
+max_gen = 300; % Znížené pre rýchlosť testov, kľudne zvýš na 500
+runs_per_param = 5; % Počet kriviek v jednom grafe
 
-run = 10;
+% Fixné (bazálne) hodnoty
+base_pop_size = 100;
+base_cross = 1;
+base_mut = 0.05;
+base_n_best = 4;
 
-% Príprava grafu
-figure(2); clf; hold on;
-colors = lines(run); % Generuje 10 rôznych farieb
-legend_entries = cell(1, run);
+%% 1. EXPERIMENT: Variabilná veľkosť populácie
+figure(1); clf; hold on;
+pop_values = [20, 50, 100, 200, 500]; % Rôzne veľkosti populácie
+colors = lines(length(pop_values));
 
-fprintf('Štart %d behov s variabilnými parametrami...\n',run);
-
-for beh = 1:run
-    % --- Dynamické menenie parametrov pre každý beh (Bod 5) ---
-    % Mierne variácie v počte vyvolených, krížení a miere mutácie
-    n_best = 2 + mod(beh, 3);          % Mení sa medzi 2-4 
-    n_rest = 100 - (n_best * 3);       % Dopočet pre selsus
-    cross_points = 1 + mod(beh, 3);    % Kríženie 1 až 3 bodové
-    mut_rate = 0.01 + (beh * 0.01);    % Miera mutácie od 2% 
+fprintf('Experiment 1: Testovanie veľkosti populácie...\n');
+for i = 1:length(pop_values)
+    current_num = pop_values(i);
+    n_rest = current_num - (base_n_best * 3);
     
-    % Inicializácia behu
-    pop = genrpop(num, SPACE_A);
+    pop = genrpop(current_num, SPACE_A);
     fitness_history = zeros(1, max_gen);
-    msg_len = 0;
-    tic; 
-
-    for gen = 1:max_gen
-        y = testfn3c(pop);  
-        
-        % Selekcia (Best, Rest)
-        Best = selbest(pop, y, repmat(n_best, 1, 3));
-        Rest = selsus(pop, y, n_rest);
-        
-        % Kríženie (Incest)
-        Incest = crossov(Rest, cross_points, 0);
-        
-        % Mutácie (Work, AditivnaMutacia)
-        Work = mutx(Incest, mut_rate, SPACE_A);   
-        AditivnaMutacia = muta(Work, mut_rate, Amp, SPACE_A); 
-        
-        pop = [Best; AditivnaMutacia];
-        [min_y, x_idx] = min(y);
-        fitness_history(gen) = min_y;
-        
-        % Real-time výpis v jednej línii
-        if mod(gen, 50) == 0
-            elapsed = toc;
-            etf_s = (elapsed / gen) * (max_gen - gen);
-            fprintf(repmat('\b', 1, msg_len));
-            msg = sprintf('Beh: %2d/10 | Gen: %4d | Fit: %8.2f | ETF: %02dm:%02ds', ...
-                          beh, gen, min_y, floor(etf_s/60), round(mod(etf_s,60)));
-            fprintf('%s', msg);
-            msg_len = length(msg);
-        end
-    end
     
-    % Vykreslenie behu (Bod 4)
-    plot(fitness_history, 'Color', colors(beh,:), 'LineWidth', 1.2);
-    legend_entries{beh} = sprintf('Beh %d (Mut: %.2f)', beh, mut_rate);
-    fprintf('\nBeh %d dokončený. Najlepšia fitness: %.2f\n', beh, min(y));
+    for gen = 1:max_gen
+        y = testfn3c(pop);
+        Best = selbest(pop, y, repmat(base_n_best, 1, 3));
+        Rest = selsus(pop, y, n_rest);
+        Incest = crossov(Rest, base_cross, 0);
+        Work = mutx(Incest, base_mut, SPACE_A);
+        AditMut = muta(Work, base_mut, Amp, SPACE_A);
+        pop = [Best; AditMut];
+        fitness_history(gen) = min(y);
+    end
+    plot(fitness_history, 'Color', colors(i,:), 'LineWidth', 1.5);
+    legend_labels{i} = sprintf('Pop: %d', current_num);
 end
+title('Vplyv veľkosti populácie na konvergenciu');
+xlabel('Generácia'); ylabel('Fitness'); legend(legend_labels); grid on;
 
-% Finálna úprava grafu
-xlabel('Generácia'); ylabel('F(x)');
-title('Porovnanie %d behov GA s rôznymi parametrami',run);
-legend(legend_entries, 'Location', 'northeastoutside');
-grid on;
+%% 2. EXPERIMENT: Variabilné kríženie (Crossover points)
+figure(2); clf; hold on;
+cross_values = [1, 2, 3, 5, 10]; 
+colors = lines(length(cross_values));
 
-% Finálny výpis posledného (najlepšieho) jedinca
-[final_min, final_idx] = min(y);
-fprintf('\n======================= POSLEDNÝ BEH =======================\n');
-fprintf('Najlepšia fitness: %.2f\n', final_min);
-fprintf('Súradnice optimálneho jedinca:\n');
-fprintf('%.4f ', pop(final_idx,:));
-fprintf('\n============================================================\n');
+fprintf('Experiment 2: Testovanie bodov kríženia...\n');
+for i = 1:length(cross_values)
+    current_cross = cross_values(i);
+    n_rest = base_pop_size - (base_n_best * 3);
+    
+    pop = genrpop(base_pop_size, SPACE_A);
+    fitness_history = zeros(1, max_gen);
+    
+    for gen = 1:max_gen
+        y = testfn3c(pop);
+        Best = selbest(pop, y, repmat(base_n_best, 1, 3));
+        Rest = selsus(pop, y, n_rest);
+        Incest = crossov(Rest, current_cross, 0);
+        Work = mutx(Incest, base_mut, SPACE_A);
+        AditMut = muta(Work, base_mut, Amp, SPACE_A);
+        pop = [Best; AditMut];
+        fitness_history(gen) = min(y);
+    end
+    plot(fitness_history, 'Color', colors(i,:), 'LineWidth', 1.5);
+    legend_labels_cross{i} = sprintf('Cross pts: %d', current_cross);
+end
+title('Vplyv počtu bodov kríženia');
+xlabel('Generácia'); ylabel('Fitness'); legend(legend_labels_cross); grid on;
+
+%% 3. EXPERIMENT: Variabilná miera mutácie
+figure(3); clf; hold on;
+mut_values = [0.001, 0.01, 0.05, 0.1, 0.3]; 
+colors = lines(length(mut_values));
+
+fprintf('Experiment 3: Testovanie miery mutácie...\n');
+for i = 1:length(mut_values)
+    current_mut = mut_values(i);
+    n_rest = base_pop_size - (base_n_best * 3);
+    
+    pop = genrpop(base_pop_size, SPACE_A);
+    fitness_history = zeros(1, max_gen);
+    
+    for gen = 1:max_gen
+        y = testfn3c(pop);
+        Best = selbest(pop, y, repmat(base_n_best, 1, 3));
+        Rest = selsus(pop, y, n_rest);
+        Incest = crossov(Rest, base_cross, 0);
+        Work = mutx(Incest, current_mut, SPACE_A);
+        AditMut = muta(Work, current_mut, Amp, SPACE_A);
+        pop = [Best; AditMut];
+        fitness_history(gen) = min(y);
+    end
+    plot(fitness_history, 'Color', colors(i,:), 'LineWidth', 1.5);
+    legend_labels_mut{i} = sprintf('Mut rate: %.3f', current_mut);
+end
+title('Vplyv miery mutácie na stabilitu a hľadanie minima');
+xlabel('Generácia'); ylabel('Fitness'); legend(legend_labels_mut); grid on;
+
+fprintf('\nVšetky experimenty dokončené.\n');
