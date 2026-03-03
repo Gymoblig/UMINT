@@ -3,7 +3,7 @@ D = 10;
 num = 100;
 SPACE_A = [ones(1,D)*(-1000); ones(1,D)*1000];
 Amp = [ones(1,D)];
-max_gen = 500; 
+max_gen = 200; 
 num_runs = 10; % Number of repetitions
 
 % Preparation for plotting
