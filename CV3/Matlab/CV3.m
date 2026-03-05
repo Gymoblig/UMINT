@@ -10,7 +10,7 @@ B = [0,0; 17,100; 51,15; 70,62; 42,25; 32,17; 51,64; 39,45; 68,89; 20,19; ...
      20,82; 49,0; 62,14; 7,60; 0,0];
 
 % --- Evolučné parametre ---
-nRuns = 10;                % Počet behov podľa cviko3.m
+nRuns = 10;                % Počet behov 
 nGen = 1500;               % Počet generácií
 popSize = 200;             % Veľkosť populácie
 numPoints = size(B, 1);    % Počet miest (25)
@@ -40,8 +40,8 @@ for r = 1:nRuns
     fprintf('│    %02d     │    Spracúvam...  │', r);
     
     for gen = 1:nGen
-        % 2. Fitness evaluácia [Logika: Fitness.m - Euklidovská vzdialenosť]
-        % Poznámka: Tvoja funkcia Fitness vracia riadkový vektor, transponujeme ho
+        % 2. Fitness evaluácia [Logika: Euklidovská vzdialenosť]
+        % Vracia sa riadkový vektor, transponujeme ho
         ObjV = Fitness(Chrom, B)'; 
         
         % Sledovanie elity v aktuálnom behu
@@ -51,12 +51,12 @@ for r = 1:nRuns
             runBestPath = Chrom(minIdx, :);
         end
         
-        % 3. Selekcia [Logika: cviko3.m]
+        % 3. Selekcia
         best = selbest(Chrom, ObjV, [2 2 2]); 
         supbest = selbest(Chrom, ObjV, 10);
         supbest2 = seltourn(Chrom, ObjV, popSize - 16); 
         
-        % 4. Kríženie a Mutácia [Logika: cviko3.m]
+        % 4. Kríženie a Mutácia 
         mix = crosord([supbest; supbest2], 1);
         mutRange = 2:numPoints-1; % Ochrana fixných bodov 1 a 25
         
