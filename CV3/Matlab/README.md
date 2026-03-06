@@ -69,7 +69,7 @@ Algoritmus bol spustený 10-krát pre overenie stability a úspešnosti.
 
 ### Najlepšia nájdená dráha (Fitness: 468.11)
 ![Najlepšia nájdená dráha](img/1.png)
-*Vykreslenie optimálnej trajektórie robota. Štart a cieľ sú v bode [0,0].*
+*Vykreslenie optimálnej trajektórie. Štart a cieľ sú v bode [0,0].*
 
 ### Najlepší nájdený genóm
 Genóm pre hodnotu 468.11 zodpovedá poradiu bodov na obrázku (začína v $[0,0]$, pokračuje cez bod s dĺžkou úseku 15.1, končí návratom z bodu s úsekom 49.0).
