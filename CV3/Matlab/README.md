@@ -2,32 +2,36 @@
 
 Tento projekt implementuje genetický algoritmus (GA) v prostredí MATLAB na riešenie problému obchodného cestujúceho pre 25 statických bodov. Cieľom je nájsť najkratšiu možnú trajektóriu so začiatkom v bode 1 a koncom v bode 25.
 
-## Štruktúra projektu
+## 1. Cieľ úlohy
+Cieľom bolo navrhnúť GA pre výpočet najkratšej dráhy robota, ktorý začína v bode $[0,0]$, navštívi všetky definované body a vráti sa späť do bodu $[0,0]$.
+* **Referenčná kontrolná hodnota:** 468.1095
+* **Dosiahnutá hodnota:** **468.11**
 
-* **CV3.m** – Hlavný vykonávací skript. Obsahuje definíciu súradníc miest (matica `B`), nastavenie evolučných parametrov, logiku genetických operátorov (selekcia, kríženie, mutácia) a generovanie finálneho grafického výstupu.
+## 2. Kódovanie riešenia
+Riešenie je kódované ako chromozóm pozostávajúci z **indexov bodov** (nie súradníc). 
+* **Fixné body:** Prvý gén (index 1) a posledný gén (index 25) sú fixne nastavené na bod $[0,0]$.
+* **Permutačné jadro:** Algoritmus optimalizuje poradie vnútornej sekvencie bodov, t.j. **indexy 2 až 24**.
 
-## Popis algoritmu
+## 3. Genetické operátory a zdôvodnenie zmien
+V porovnaní s predchádzajúcimi úlohami (napr. Schwefelova funkcia), kde boli použité operátory `crossov` a `muta`, bolo v tejto úlohe nutné použiť špecializované permutačné operátory.
 
-### 1. Inicializácia populácie
-Proces začína vytvorením počiatočnej populácie náhodných permutácií. Algoritmus striktne fixuje prvý stĺpec na hodnotu 1 a posledný stĺpec na hodnotu 25. Vnútorná sekvencia miest (indexy 2 až 24) je generovaná náhodne, čím je zabezpečená rôznorodosť riešení pri zachovaní fixných koncových bodov.
+> **Zdôvodnenie:** Štandardné operátory spojitej optimalizácie by v prípade indexov miest viedli k vzniku neplatných ciest (duplicity miest alebo ich vynechanie). Aditívna mutácia by navyše vytvorila neexistujúce indexy (neceločíselné hodnoty).
 
-### 2. Výpočet zdatnosti (Fitness)
-Zdatnosť každého jedinca je definovaná ako celková dĺžka trasy. Výpočet prebieha kumulatívnym sčítaním euklidovských vzdialeností medzi po sebe idúcimi uzlami trasy na základe ich priestorových súradníc.
+**Použité Toolbox operátory:**
+* **Kríženie:** `crosord` (Order crossover) – zabezpečuje legálnu permutáciu bez opakovania prvkov.
+* **Mutácia:** Kombinácia `swappart` (výmena pozícií), `invord` (inverzia úseku) a `swapgen` (lokálna regenerácia). Operácie sú striktne obmedzené na rozsah génov 2-24.
 
+## 4. Fitness funkcia
+Fitness funkcia je definovaná ako **celková dĺžka dráhy**. Výpočet prebieha ako suma euklidovských vzdialeností medzi susednými bodmi v poradí, v akom sú zapísané v chromozóme.
 
+## 5. Experimentálne nastavenia
+Algoritmus bol testovaný s nasledujúcimi parametrami:
+* **Veľkosť populácie:** 200 jedincov
+* **Počet generácií:** 1500
+* **Selekcia:** Elitizmus (`selbest`) v kombinácii s turnajovou selekciou (`seltourn`).
 
-### 3. Evolučný cyklus
-Optimalizácia je postavená na iteratívnom zlepšovaní populácie v dvoch úrovniach:
-
-* **Riadiaci cyklus behov (`nRuns`):** Vykonáva 10 nezávislých pokusov pre elimináciu vplyvu náhody a získanie globálneho minima.
-* **Generačný cyklus (`nGen`):** V každej z 1500 generácií prebieha transformácia populácie:
-    * **Selekcia a Elitizmus:** Najlepší jedinci sú identifikovaní pomocou `selbest` a prenášaní do ďalšej generácie pre zachovanie kvality riešenia.
-    * **Variácia:** Ostatní jedinci prechádzajú turnajovou selekciou (`seltourn`) a následným krížením typu `crosord`.
-    * **Mutácia:** Na zabezpečenie prieskumu stavového priestoru sa aplikuje trojica mutácií: výmena (`swappart`), inverzia (`invord`) a regenerácia (`swapgen`). Operácie sú obmedzené na rozsah `2:numPoints-1`, aby nedošlo k porušeniu fixných bodov.
-
-## Výsledky optimalizácie
-
-Výstup z konzoly potvrdzujúci dosiahnutie globálneho minima 468.11:
+## 6. Vyhodnotenie 10 behov
+Algoritmus bol spustený 10-krát pre overenie stability a úspešnosti.
 
 ```text
 ┌──────────────────────────────────────────────────┐
@@ -55,19 +59,17 @@ Výstup z konzoly potvrdzujúci dosiahnutie globálneho minima 468.11:
 │ Celková úspešnosť riešení (pod 480)  │      90 % │
 └──────────────────────────────────────┴───────────┘
 ```
-## Grafická analýza výsledkov
+**Štatistický záver:** 90 % behov dosiahlo hodnotu $\leq 480$, čím bola podmienka úspešnosti (min. 50 %) bohato splnená.
 
-Vizualizácia predstavuje najlepšiu nájdenú trasu s celkovou dĺžkou 468.11. Grafické prostredie je nakonfigurované na pevný rozsah osí 100x100 jednotiek, pričom zobrazenie využíva nasledujúcu logiku vrstvenia a prvkov:
+## 7. Finálne výsledky a vizualizácia
 
-* **Trajektória:** Optimálna cesta je vykreslená ako čierna línia (`'k-'`) s hrúbkou 2.2, ktorá tvorí základnú vrstvu grafu.
-* **Uzly (Mestá):** Body reprezentujúce mestá sú vykreslené farbou magenta (`'m'`) a sú umiestnené na najvyššej vrstve, aby prekrývali čiernu líniu trasy.
-* **Anotácie vzdialeností:** Každý segment trasy obsahuje číselný údaj o svojej dĺžke, ktorý je umiestnený v strede úsečky v bielom textovom poli pre maximálnu čitateľnosť.
-* **Špeciálne body:** Počiatočný bod (1) je zvýraznený zeleným štvorcom a koncový bod (25) červeným štvorcom.
-* **Mierka osí:** Osi X a Y sú pevne nastavené na rozsah [0, 100] s krokom 10 jednotiek, čo zabezpečuje, že hodnota 100 je posledným číslom na oboch osiach.
+### Priebeh fitness (Konvergencia)
+*Graf zobrazuje vývoj fitness pre všetkých 10 behov a ich priemernú krivku.*
 
-![Grafické znázornenie najlepšieho riešenia](img/1.png)
 
-### Legenda a štatistika behov
-Súčasťou grafického výstupu je rozšírená legenda umiestnená mimo hlavnej plochy grafu. Obsahuje:
-1. Identifikáciu objektov (trasa, uzly, štart, cieľ).
-2. Podrobný log všetkých 10 vykonaných behov s ich konkrétnymi výslednými hodnotami fitness, čo umožňuje rýchlu vizuálnu kontrolu stability algoritmu.
+### Najlepšia nájdená dráha (Fitness: 468.11)
+![Najlepšia nájdená dráha](img/1.png)
+*Vykreslenie optimálnej trajektórie robota. Štart a cieľ sú v bode [0,0].*
+
+### Najlepší nájdený genóm
+Genóm pre hodnotu 468.11 zodpovedá poradiu bodov na obrázku (začína v $[0,0]$, pokračuje cez bod s dĺžkou úseku 15.1, končí návratom z bodu s úsekom 49.0).
