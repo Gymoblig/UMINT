@@ -128,48 +128,15 @@ for j = 1:(numPoints - 1)
     p2 = B(globalBestPath(j+1), :);
     mid = (p1 + p2) / 2;
     d = sqrt(sum((p1 - p2).^2));
-    text(mid(1), mid(2), sprintf('%.1f', d), 'FontSize', 8, 'FontWeight', 'bold', 'Color', 'k', 'BackgroundColor', 'w', 'HorizontalAlignment', 'center', 'Margin', 1, 'EdgeColor', [0.8 0.8 0.8]);
+    text(mid(1), mid(2), sprintf('%.1f', d), 'FontSize', 7, 'BackgroundColor', 'w', 'HorizontalAlignment', 'center');
+    
+    pause(0.2); % Rýchlosť animácie
+    drawnow;
 end
 
-% 3. Uzly, Štart, Cieľ
-hNodes = plot(B(:,1), B(:,2), 'mo', 'MarkerFaceColor', 'm', 'MarkerSize', 10, 'DisplayName', 'Mestá (Uzly)');
-hStart = plot(B(1,1), B(1,2), 'gs', 'MarkerSize', 13, 'MarkerFaceColor', 'g', 'DisplayName', 'Štart (Depo)'); 
-hEnd = plot(B(25,1), B(25,2), 'rs', 'MarkerSize', 13, 'MarkerFaceColor', 'r', 'DisplayName', 'Cieľ (Koniec)'); 
+% Zvýraznenie cieľa
+plot(B(numPoints,1), B(numPoints,2), 'rs', 'MarkerSize', 12, 'MarkerFaceColor', 'r');
+text(B(numPoints,1)+2, B(numPoints,2)-3, 'CIEĽ', 'FontWeight', 'bold', 'Color', 'r');
 
-% 4. Dynamická legenda behov (Log záznam)
-hRuns = zeros(nRuns, 1);
-for r = 1:nRuns
-    hRuns(r) = plot(NaN, NaN, 'o', 'MarkerSize', 4, 'Color', [0.6 0.6 0.6], ...
-        'DisplayName', sprintf('Beh %02d: %.2f', r, runResults(r)));
-end
-
-% Zobrazenie legendy
-lgd = legend([hMain, hNodes, hStart, hEnd, hRuns'], 'Location', 'northeastoutside');
-title(lgd, 'Log záznam behov');
-grid on; box on; axis([0 100 0 100]);
-title(['\fontsize{14}Analýza trasy | Globálne minimum: ' num2str(globalBestFit, '%.2f')], 'Color', 'k');
-xlabel('Súradnica X'); ylabel('Súradnica Y');
-
-%% --- LOKÁLNE FUNKCIE ---
-function Pop = genPermPop(popSize, numPoints)
-    Pop = zeros(popSize, numPoints);
-    for i = 1:popSize
-        Pop(i, 1) = 1;              
-        Pop(i, numPoints) = numPoints; 
-        Pop(i, 2:numPoints-1) = randperm(numPoints - 2) + 1;
-    end
-end
-
-function Fit = Fitness(Pop, B)
-    [popS, ~] = size(Pop);
-    Fit = zeros(popS, 1);
-    for i = 1:popS
-        totalDist = 0;
-        for j = 1:(size(Pop, 2) - 1)
-            p1 = B(Pop(i, j), :);
-            p2 = B(Pop(i, j+1), :);
-            totalDist = totalDist + sqrt(sum((p1 - p2).^2));
-        end
-        Fit(i) = totalDist;
-    end
-end
+fprintf('Program úspešne dokončený. Najlepší genóm:\n');
+disp(globalBestPath);
