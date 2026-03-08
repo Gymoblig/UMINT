@@ -42,7 +42,7 @@ Fitness funkcia je definovaná ako **celková dĺžka dráhy**. Výpočet prebie
 
 ## 6. Vyhodnotenie 10 behov
 Algoritmus bol spustený 10-krát pre overenie stability.
-
+```
 ┌──────────────────────────────────────────────────┐
 │     SYSTÉM PRE GENETICKÚ OPTIMALIZÁCIU TRASY     │
 ├──────────────────────────────────────────────────┤
@@ -67,7 +67,7 @@ Algoritmus bol spustený 10-krát pre overenie stability.
 │ Priemerná hodnota fitness            │    472.25 │
 │ Celková úspešnosť riešení (pod 480)  │     100 % │
 └──────────────────────────────────────┴───────────┘
-
+```
 **Štatistický záver:** 100 % behov dosiahlo hodnotu $\leq 480$, čím bola podmienka úspešnosti (min. 50 %) splnená.
 
 ## 7. Vizualizácia
