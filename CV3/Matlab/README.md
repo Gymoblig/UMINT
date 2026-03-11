@@ -83,6 +83,7 @@ Algoritmus bol spustený 10-krát pre overenie stability.
 *Vykreslenie optimálnej trajektórie. Štart (zelený štvorec) a cieľ (červený štvorec) sú v bode [0,0].*
 
 ![Konvergencia 10 behov](img/2.png)
+
 *Vykreslenie konvergencie všetkých 10 behov a ich priemer*
 
 ### Najlepší nájdený genóm
