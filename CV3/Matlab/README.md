@@ -73,11 +73,13 @@ Algoritmus bol spustený 10-krát pre overenie stability.
 ## 7. Vizualizácia
 
 ### Priebeh fitness (Konvergencia)
+
 *Graf zobrazuje vývoj fitness pre všetkých 10 behov a ich priemernú krivku (červená).*
 
 
 ### Najlepšia nájdená dráha (Fitness: 468.11)
 ![Najlepšia nájdená dráha](img/1.png)
+
 *Vykreslenie optimálnej trajektórie. Štart (zelený štvorec) a cieľ (červený štvorec) sú v bode [0,0].*
 
 ![Konvergencia 10 behov](img/2.png)
@@ -85,9 +87,10 @@ Algoritmus bol spustený 10-krát pre overenie stability.
 
 ### Najlepší nájdený genóm
 ![Vykreslenie 25 bodov](img/3.png)
+
 Genóm pre hodnotu 468.11:
 ```matlab
 
      [1, 22, 3, 23, 19, 18, 12, 17, 4, 9, 7, 20, 13, 15, 2, 11, 21, 24, 16, 8, 5, 6, 10, 14, 25]
 
-     ```
+```
