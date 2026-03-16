@@ -1,9 +1,8 @@
-% Nastavenia GA (spoločné pre všetky metódy podľa bodu 73)
 D = 5; 
 num = 100;
 SPACE_A = [zeros(1,D); ones(1,D)*10000000];
 Amp = [ones(1,D)];
-max_gen = 500; 
+max_gen = 200; 
 
 % Názvy metód pre legendu a logiku
 metody = {'Bez pokuty', 'Mrtva', 'Stupnovita', 'Umerna'};
@@ -17,10 +16,10 @@ for m = 1:length(metody)
     for gen = 1:max_gen
         fitnesak = zeros(1, num);
         for i = 1:num
-            % Základný výnos (fitness bez pokuty) [cite: 46]
+            % Základný výnos (fitness bez pokuty) 
             vynos = 0.04*pop(i,1) + 0.07*pop(i,2) + 0.11*pop(i,3) + 0.06*pop(i,4) + 0.05*pop(i,5);
             
-            % Výber pokuty podľa aktuálneho cyklu [cite: 64]
+            % Výber pokuty podľa aktuálneho cyklu 
             switch metody{m}
                 case 'Bez pokuty'
                     pokuta = 0;
@@ -32,11 +31,11 @@ for m = 1:length(metody)
                     pokuta = get_umerna_pokuta(pop(i,:));
             end
             
-            % Minimalizujeme záporný výnos + pokutu [cite: 63, 126]
+            % Minimalizujeme záporný výnos + pokutu
             fitnesak(i) = -vynos + pokuta;
         end
         
-        % Selekcia a genetika (tvoje overené nastavenie) [cite: 67]
+        % Selekcia a genetika (tvoje overené nastavenie)
         Best = selbest(pop, fitnesak, 1);
         Rest = selsus(pop, fitnesak, num - 1);
         Incest = crossov(Rest, 1, 0);
