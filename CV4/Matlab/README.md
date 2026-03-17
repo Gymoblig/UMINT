@@ -1,59 +1,73 @@
 # Optimalizácia investičného portfólia pomocou GA (Zadanie 4)
 
-Tento projekt implementuje genetický algoritmus (GA) na riešenie úlohy optimálneho rozdelenia investičného kapitálu v hodnote **10 000 000 EUR**. Cieľom je porovnať vplyv rôznych penalizačných prístupov na stabilitu riešenia a schopnosť algoritmu dodržať stanovené finančné ohraničenia.
+Tento projekt implementuje genetický algoritmus (GA) na riešenie úlohy optimálneho rozdelenia investičného kapitálu v hodnote **10 000 000 EUR**. Program porovnáva tri hlavné penalizačné prístupy a vizualizuje ich schopnosť nájsť prípustné riešenie v ohraničenom stavovom priestore.
 
 ---
 
-## Postup riešenia (v súlade s bodmi zadania)
+## 1. Postup riešenia
 
-### 1. Konfigurácia a kódovanie (Bod 1 a 2)
-Riešenie je kódované ako chromozóm s reálnymi číslami o dĺžke $D = 5$. Fitness funkcia je nastavená na minimalizáciu záporného výnosu (maximalizácia zisku):
+### Konfigurácia a kódovanie
+Riešenie je kódované ako chromozóm s reálnymi číslami o dĺžke $D = 5$. 
+Fitness funkcia je definovaná ako minimalizácia záporného výnosu so zahrnutím penalizácie:
 $$Fitness = - (0.04x_1 + 0.07x_2 + 0.11x_3 + 0.06x_4 + 0.05x_5) + Pokuta$$
 
-### 2. Metódy pokutovania (Bod 3)
-Porovnávame štyri prístupy k riešeniu neprípustných jedincov:
-- **Bez pokuty:** Referenčný beh bez obmedzení.
-- **Mŕtva pokuta:** Fixná sankcia za akékoľvek porušenie ohraničení.
-- **Stupňovitá pokuta:** Penalizácia rastie lineárne s počtom porušených pravidiel.
-- **Úmerná pokuta:** Sankcia rastiaca s konkrétnou mierou porušenia limitov.
+### Metódy pokutovania
+Implementované boli tri stratégie spracovania neprípustných jedincov:
 
-### 3. Stabilita konvergencie (Bod 4)
-Pre každú metódu bolo vykonaných **5 nezávislých behov**. Nižšie sú zobrazené priebehy konvergencie pre jednotlivé prístupy, ktoré dokumentujú stabilitu algoritmu:
-
-| Metóda: Bez pokuty | Metóda: Mŕtva pokuta |
-| :---: | :---: |
-| ![Bez pokuty](img/bez_pokuty.png) | ![Mrtva](img/mrtva.png) |
-
-| Metóda: Stupňovitá pokuta | Metóda: Úmerná pokuta |
-| :---: | :---: |
-| ![Stupnovita](img/stupnovita.png) | ![Umerna](img/umerna.png) |
-
-### 4. Porovnanie konvergencie (Bod 6)
-Finálne porovnanie najlepších priebehov všetkých štyroch metód v jednom grafe:
-![Porovnanie metód](img/1.png)
+1. **Mŕtva pokuta:** Využíva vysokú fixnú sankciu ($10^{12}$). Bol pridaný "navádzací mechanizmus" ($+ \sum v \cdot 10$), ktorý umožňuje algoritmu rozlišovať mieru porušenia aj u "mŕtvych" jedincov.
+2. **Stupňovitá pokuta:** Penalizuje jedinca na základe **počtu** porušených ohraničení (fixných $5 \cdot 10^6$ za každé pravidlo).
+3. **Úmerná pokuta:** Sankcia rastie lineárne s **veľkosťou** prekročenia limitov (rozdiel medzi hodnotou a limitom).
 
 ---
 
-## Archivácia výsledkov (Bod 5 a 7)
+## 2. Archivácia výsledkov (Finálne meranie)
 
-Na základe vykonaných experimentov boli namerané nasledujúce finálne hodnoty najlepších jedincov:
+Nižšie sú uvedené dáta z posledného úspešného behu algoritmu (400 generácií, 100 jedincov). Všetky metódy úspešne konvergovali k legálnym riešeniam.
 
-#### **A. Metóda: Bez pokuty**
-- **Optimálna alokácia x:** `[9988980, 9996684, 9992348, 9991254, 9989620] EUR`
-- **Kontrola ohraničení (v):** `[39958886.83, 17485664.14, 0.00, 0.00]`
-- *Poznámka: Podľa očakávania investuje maximum do všetkých produktov bez ohľadu na limity.*
+### **A. Metóda: Mŕtva pokuta**
+* **x1 (Bežné akcie):** 101 681.91 EUR
+* **x2 (Preferenčné akcie):** 2 394 451.24 EUR
+* **x3 (Podnikové dlhopisy):** 2 238 094.53 EUR
+* **x4 (Štátne dlhopisy):** 2 761 523.90 EUR
+* **x5 (Úspory v banke):** 2 504 177.90 EUR
+* **Celkový ročný výnos:** **708 769.59 EUR**
 
-#### **B. Metóda: Mŕtva pokuta**
-- **Optimálna alokácia x:** `[9956558, 9997138, 9999429, 9994393, 9999139] EUR`
-- **Kontrola ohraničení (v):** `[39946656.37, 17453696.19, 4746.08, 0.00]`
-- *Poznámka: Algoritmus pri zvolenej konštante nedokázal nájsť prípustnú oblasť.*
+### **B. Metóda: Stupňovitá pokuta**
+* **x1 (Bežné akcie):** 318 238.90 EUR
+* **x2 (Preferenčné akcie):** 1 638 322.00 EUR
+* **x3 (Podnikové dlhopisy):** 1 916 867.52 EUR
+* **x4 (Štátne dlhopisy):** 3 072 957.97 EUR
+* **x5 (Úspory v banke):** 3 053 537.51 EUR
+* **Celkový ročný výnos:** **675 321.88 EUR**
 
-#### **C. Metóda: Stupňovitá pokuta**
-- **Optimálna alokácia x:** `[9999679, 9979588, 9988465, 9996697, 9994745] EUR`
-- **Kontrola ohraničení (v):** `[39959174.30, 17479266.59, 0.00, 0.00]`
+### **C. Metóda: Úmerná pokuta**
+* **x1 (Bežné akcie):** 401 749.49 EUR
+* **x2 (Preferenčné akcie):** 1 980 057.80 EUR
+* **x3 (Podnikové dlhopisy):** 2 316 061.65 EUR
+* **x4 (Štátne dlhopisy):** 2 665 682.14 EUR
+* **x5 (Úspory v banke):** 2 635 087.64 EUR
+* **Celkový ročný výnos:** **701 136.12 EUR**
 
-#### **D. Metóda: Úmerná pokuta**
-- **Optimálna alokácia x:** `[234538, 2265066, 2277336, 2665241, 2501203] EUR`
-- **Kontrola ohraničení (v):** `[0.00, 0.00, 0.00, 0.00]`
-- *Poznámka: Jediná metóda, ktorá úspešne našla plne legálne a stabilné riešenie.*
 
+---
+
+## 3. Stabilita konvergencie (Bod 4 zadania)
+
+Pre každú metódu bolo vykonaných **5 nezávislých behov**. Nižšie sú zobrazené priebehy konvergencie (stabilitu riešenia dokumentujú Figure 1 až 3):
+
+| Metóda: Mŕtva pokuta | Metóda: Stupňovitá pokuta | Metóda: Úmerná pokuta |
+| :---: | :---: | :---: |
+| ![Mrtva](img/mrtva.png) | ![Stupnovita](img/stupnovita.png) | ![Umerna](img/umerna.png) |
+
+### 4. Porovnanie najlepších výsledkov (Bod 6 zadania)
+
+Nasledujúci graf (Figure 4) zobrazuje porovnanie najlepších priebehov konvergencie pre všetky tri testované metódy pokutovania. Tento graf demonštruje, ako rýchlo a k akej finálnej hodnote dokáže daná metóda algoritmus navigovať.
+
+![Porovnanie všetkých metód](img/1.png)
+
+---
+
+## 4. Záver a zhodnotenie
+Z výsledkov vyplýva, že najvyšší výnos dosiahla **Mŕtva pokuta** (vďaka navádzaciemu faktoru), tesne nasledovaná **Úmernou pokutou**. 
+
+Algoritmus v oboch prípadoch identifikoval ako kľúčovú investíciu **Podnikové dlhopisy (x3)** s najvyšším úrokom (11 %), pričom ich objem maximalizoval až po hranicu ohraničenia (spolu so štátnymi dlhopismi do 50 % portfólia). Rovnako úspešne dodržal podmienku, kde objem štátnych dlhopisov ($x_4$) musel byť vyšší alebo rovný úsporám v banke ($x_5$).
