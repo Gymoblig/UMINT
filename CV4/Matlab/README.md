@@ -59,7 +59,7 @@ Pre každú metódu bolo vykonaných **5 nezávislých behov**. Nižšie sú zob
 | :---: | :---: | :---: |
 | ![Mrtva](img/mrtva.png) | ![Stupnovita](img/stupnovita.png) | ![Umerna](img/umerna.png) |
 
-### 4. Porovnanie najlepších výsledkov (Bod 6 zadania)
+## 4. Porovnanie najlepších výsledkov (Bod 6 zadania)
 
 Nasledujúci graf (Figure 4) zobrazuje porovnanie najlepších priebehov konvergencie pre všetky tri testované metódy pokutovania. Tento graf demonštruje, ako rýchlo a k akej finálnej hodnote dokáže daná metóda algoritmus navigovať.
 
@@ -67,7 +67,7 @@ Nasledujúci graf (Figure 4) zobrazuje porovnanie najlepších priebehov konverg
 
 ---
 
-## 4. Záver a zhodnotenie
+## 5. Záver a zhodnotenie
 Z výsledkov vyplýva, že najvyšší výnos dosiahla **Mŕtva pokuta** (vďaka navádzaciemu faktoru), tesne nasledovaná **Úmernou pokutou**. 
 
 Algoritmus v oboch prípadoch identifikoval ako kľúčovú investíciu **Podnikové dlhopisy (x3)** s najvyšším úrokom (11 %), pričom ich objem maximalizoval až po hranicu ohraničenia (spolu so štátnymi dlhopismi do 50 % portfólia). Rovnako úspešne dodržal podmienku, kde objem štátnych dlhopisov ($x_4$) musel byť vyšší alebo rovný úsporám v banke ($x_5$).
