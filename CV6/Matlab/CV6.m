@@ -128,4 +128,4 @@ fprintf('Senzitivita (TPR): %.2f %% - kolko chorych sme nasli\n', (TP / (TP + FN
 fprintf('Špecificita (TNR): %.2f %% - ako presne urcujeme zdravych\n', (TN / (TN + FP)) * 100);
 
 % Vykreslim confusion matrix pre najlepsi beh
-figure, plotconfusion(targets(:,bestTestInd), bestOutputs(:,bestTestInd));
+% figure, plotconfusion(targets(:,bestTestInd), bestOutputs(:,bestTestInd));
