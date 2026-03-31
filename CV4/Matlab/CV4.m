@@ -8,9 +8,7 @@ max_gen = 400;      % Počet generácií (koľkokrát sa populácia vyvinie)
 pocet_behov = 5;    % Stabilita: algoritmus pustíme 5-krát pre každú metódu
 
 % Priestor riešení (Body 0 až 10 miliónov)
-% SPACE_START: Pomôžeme GA na začiatku menším rozsahom, aby ľahšie našiel legálne riešenie
 SPACE_A = [zeros(1,D); ones(1,D)*10000000]; 
-SPACE_START = [zeros(1,D); ones(1,D)*2000000]; 
 
 % Amp: Krok mutácie (ako ďaleko od pôvodnej hodnoty môže "skočiť" nový jedinec)
 Amp = [ones(1,D) * 100000]; 
@@ -30,7 +28,7 @@ for m = 1:length(metody)
     najlepsi_x_metody = zeros(1, D);
     
     for b = 1:pocet_behov
-        pop = genrpop(num, SPACE_START); % Inicializácia náhodnej populácie
+        pop = genrpop(num, SPACE_A); % Inicializácia náhodnej populácie
         vynos_history = zeros(1, max_gen); 
         
         for gen = 1:max_gen
@@ -60,7 +58,7 @@ for m = 1:length(metody)
                 
                 % Fitness funkcia: Minimalizujeme (-vynos + pokuta)
                 % Záporný výnos znamená, že hľadáme najmenšie záporné číslo = najväčší zisk
-                fitnesak(i) = -vynos + pokuta;
+                fitnesak(i) = - vynos + pokuta;
             end
             
             % Selekcia a záznam najlepšieho riešenia v generácii
