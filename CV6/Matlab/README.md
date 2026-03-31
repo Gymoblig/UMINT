@@ -65,7 +65,7 @@ Každý model bol spustený 5-krát, aby sa eliminoval vplyv náhodnej inicializ
 *Tento graf zobrazuje priebeh učenia (Performance) tvojej neurónovej siete vyjadrený pomocou krížovej entrópie (Cross Entropy) v závislosti od počtu epoch.*
 
 **Matica zámien:**
-![M3 Matrix](img/m3_confusion.png)
+![M3 Matrix](img/m3confusion.png)
 
 ---
 
