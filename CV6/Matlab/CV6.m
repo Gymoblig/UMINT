@@ -14,11 +14,14 @@ targetLabels = typ_ochorenia(:)';
 % Musim spravit z cisla triedy (1,2,3) vektor (napr. [1;0;0])
 targets = full(ind2vec(targetLabels)); 
 
+
 % --- 2. PRIPRAVA INDEXOV (Rozdelim si to podla diagnoz) ---
 % Toto robim kvoli tomu, aby som mal v kazdej vzorke zastupene vsetky triedy
 idx1 = find(targetLabels == 1);
 idx2 = find(targetLabels == 2);
 idx3 = find(targetLabels == 3);
+
+
 
 % Nastavenia pre porovnavanie
 model_names = {'M1', 'M2', 'M3'};
@@ -56,17 +59,17 @@ for s = 1:length(struktury)
         
         % Povieme sieti, ze indexy pre data sme si vybrali sami (manualne delenie)
         net.divideFcn = 'dividerand';
-        net.divideParam.trainInd = 0.6;
-        net.divideParam.valInd = 0.2;
-        net.divideParam.testInd = 0.2;
+        net.divideParam.trainRatio = 0.6;
+        net.divideParam.valRatio = 0.2;
+        net.divideParam.testRatio = 0.2;
         
         % MOJE NASTAVENIA PARAMETROV (Vyladene pre vysoku uspesnost)
-        net.trainParam.goal = 1e-3;       % Chcem co najmensiu chybu
-        net.trainParam.show = 20;         % Vypis kazdych 20 epoch
-        net.trainParam.epochs = 300;      % Max pocet pokusov o ucenie
-        %net.trainParam.min_grad = 1e-6;  % Ukonci to, ked sa uz siet nevie zlepsovat
+        net.trainParam.goal = 1e-3;        % Chcem co najmensiu chybu
+        net.trainParam.show = 20;          % Vypis kazdych 20 epoch
+        net.trainParam.epochs = 300;       % Max pocet pokusov o ucenie
+        %net.trainParam.min_grad = 1e-6;   % Ukonci to, ked sa uz siet nevie zlepsovat
         net.trainParam.max_fail = 100;     % Nechaj to dlhsie bezat, nech sa to poriadne nauci
-        net.trainParam.showWindow = true; % Nevyhadzuj mi milion okien pocas cyklu
+        net.trainParam.showWindow = false; % Nevyhadzuj mi milion okien pocas cyklu
 
         % Spustim trenovanie
         [net, tr] = train(net, inputs, targets);
@@ -105,6 +108,7 @@ for s = 1:length(struktury)
                     mean(run_results(:,4)), mean(run_results(:,2))}];
 end
 
+
 % --- 4. SUHRNNA TABULKA 3 (Vysledok celej ulohy) ---
 fprintf('\n==========================================================\n');
 fprintf('Tabuľka 3: Súhrnné porovnanie modelov (Cieľ > 92%%)\n');
@@ -128,4 +132,12 @@ fprintf('Senzitivita (TPR): %.2f %% - kolko chorych sme nasli\n', (TP / (TP + FN
 fprintf('Špecificita (TNR): %.2f %% - ako presne urcujeme zdravych\n', (TN / (TN + FP)) * 100);
 
 % Vykreslim confusion matrix pre najlepsi beh
-% figure, plotconfusion(targets(:,bestTestInd), bestOutputs(:,bestTestInd));
+figure, plotconfusion(targets(:,bestTestInd), bestOutputs(:,bestTestInd));
+idx1NEW = find(targetLabels == 1,1);
+idx2NEW = find(targetLabels == 2,1);
+idx3NEW = find(targetLabels == 3,1);
+samples = inputs(:, [idx1NEW idx2NEW idx3NEW]);
+outnetsimbody = sim(net, samples);
+triedy = vec2ind(outnetsimbody);
+disp(outnetsimbody)
+disp(triedy);
