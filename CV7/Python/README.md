@@ -115,3 +115,13 @@ Merali sme čas trénovania (10 epoch) pre modely MLP2 a CNN2, aby sme kvantifik
 | MLP2 | 97.89% | Najlepší baseline model, náchylný na overfitting. | Nenáročné na výpočet. |
 
 **Záverečný verdikt:** Pre rozpoznávanie obrazu sú konvolučné vrstvy nenahraditeľné. Najlepšie výsledky dosahujeme pri použití **optima lnej architektúry (CNN2)** v kombinácii s **Dropoutom 0.3** a **GPU akceleráciou (CUDA)**, ktorá je pre efektívny vývoj kritická.
+
+
+## 6. Dodatok (Zabudol som)
+**Zabudol som pridať vykrelsnie najlepšich behov a vizualizáciu**
+### Pre MLP
+![MLP NUMBERS](MLP_VISUAL.png)*
+
+
+### Pre CNN
+![CNN NUMBERS](CNN_VISUAL.png)*
