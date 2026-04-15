@@ -21,12 +21,16 @@ Ako základný baseline sme implementovali dve architektúry plne prepojených s
 | **MLP2** | 97.57 | 97.89 | 97.67 | 0.1277 |
 
 **Vizualizácia pre MLP1:**
-![Trénovacia krivka MLP1](MLP1.png)*
-![Confusion Matrix MLP1](MLP1_MATRIX.png)*
+
+![Trénovacia krivka MLP1](MLP1.png)
+
+![Confusion Matrix MLP1](MLP1_MATRIX.png)
 
 **Vizualizácia pre MLP2:**
-![Trénovacia krivka MLP2](MLP2.png)*
-![Confusion Matrix MLP2](MLP2_MATRIX.png)*
+
+![Trénovacia krivka MLP2](MLP2.png)
+
+![Confusion Matrix MLP2](MLP2_MATRIX.png)
 
 **Pozorovanie:** MLP modely dosahujú vysokú presnosť, ale vykazujú preučenie (overfitting) už po 4. epoche. Hoci má MLP2 komplexnejšiu architektúru, jej testovacia presnosť stagnuje a strata rastie, čo naznačuje potrebu regularizácie.
 
@@ -51,16 +55,23 @@ Implementovali sme tri varianty CNN, ktoré využívajú priestorovú hierarchiu
 | CNN3 | 99.05 | 99.29 | 99.16 | 0.0260 |
 
 **Vizualizácia pre CNN1:**
-![Trénovacia krivka CNN1](CNN1.png)*
-![Confusion Matrix CNN1](CNN1_MATRIX.png)*
+
+![Trénovacia krivka CNN1](CNN1.png)
+
+![Confusion Matrix CNN1](CNN1_MATRIX.png)
+
 
 **Vizualizácia pre CNN2 (Víťazný model):**
-![Trénovacia krivka CNN2](CNN2.png)*
-![Confusion Matrix CNN2](CNN2_MATRIX.png)*
+
+![Trénovacia krivka CNN2](CNN2.png)
+
+![Confusion Matrix CNN2](CNN2_MATRIX.png)
 
 **Vizualizácia pre CNN3:**
-![Trénovacia krivka CNN3](CNN3.png)*
-![Confusion Matrix CNN3](CNN3_MATRIX.png)*
+
+![Trénovacia krivka CNN3](CNN3.png)
+
+![Confusion Matrix CNN3](CNN3_MATRIX.png)
 
 **Kľúčové zistenia:**
 * Prechod na CNN priniesol nárast priemerného výkonu o viac ako **1.5%** oproti MLP.
@@ -119,9 +130,11 @@ Merali sme čas trénovania (10 epoch) pre modely MLP2 a CNN2, aby sme kvantifik
 
 ## 6. Dodatok (Zabudol som)
 **Zabudol som pridať vykrelsnie najlepšich behov a vizualizáciu**
-### Pre MLP
-![MLP NUMBERS](MLP_VISUAL.png)*
+## Pre MLP
+
+![MLP NUMBERS](MLP_VISUAL.png)
 
 
-### Pre CNN
-![CNN NUMBERS](CNN_VISUAL.png)*
+## Pre CNN
+
+![CNN NUMBERS](CNN_VISUAL.png)
