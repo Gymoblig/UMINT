@@ -17,7 +17,7 @@ rezim = 6; % *
 % na riadenie bude pouzity vektor: intervaly alebo riadenie nenastane
 % Ked je fuzzy_volba = 1 tak sa reguluje interval pre dlzku zelenej na
 % semaforoch fuzzy logikou
-fuzzy_volba = 1;
+fuzzy_volba = 1
 
 % nazov zvoleneho fuzzy suboru (meno.fis)
 fuzzy_meno = 'pomoc_boze_kedy_toto_skonci.fis';
