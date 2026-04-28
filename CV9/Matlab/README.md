@@ -41,7 +41,9 @@ Logika pravidiel je nastavená tak, aby uprednostnila smery s kritickým počtom
 1. Ak je na zelenej Vela a na červenej Malo -> Doba trvania je Dlho.
 2. Ak je na červenej Kriticky -> Doba trvania je Kratko (rýchle prepnutie pre čakajúcich).
 3. Ak je na zelenej Malo a na červenej Vela -> Doba trvania je Kratko.
-
+4. Ak je na zelenej stredne a na červenej stredne -> Doba trvania je Stredne 
+5. Ak je na zelenej stredne a na červenej veľa -> Doba trvania je Kratko
+6. Ak je na zelenej Veľa a na červenej stredne -> Doba trvania je Dlho
 
 ![Zobrazenie pravidiel](pravidla.png)
 
@@ -56,10 +58,10 @@ Fuzzy riadenie v režime 6 dosiahlo nasledujúce výsledky oproti stanoveným li
 
 | Parameter | Požadovaný limit | Dosiahnutý výsledok |
 | :--- | :--- | :--- |
-| Max. počet áut v pruhu A2 | 15 áut | 6 |
-| Max. počet v ostatných pruhoch | 10 áut | 6 |
-| Max. počet čakajúcich celkovo | 40 áut | 36 |
-| Počet čakajúcich na konci | < 20 áut | 12 |
+| Max. počet áut v pruhu A2 | 15 áut | 3 |
+| Max. počet v ostatných pruhoch | 10 áut | 10 |
+| Max. počet čakajúcich celkovo | 40 áut | 33 |
+| Počet čakajúcich na konci | < 20 áut | 9 |
 
 ![Výstup z MATLABu](vystup.png)
 
