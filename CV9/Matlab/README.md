@@ -58,7 +58,7 @@ Fuzzy riadenie v režime 6 dosiahlo nasledujúce výsledky oproti stanoveným li
 
 | Parameter | Požadovaný limit | Dosiahnutý výsledok |
 | :--- | :--- | :--- |
-| Max. počet áut v pruhu A2 | 15 áut | 3 |
+| Max. počet áut v pruhu A2 | 15 áut | 15 |
 | Max. počet v ostatných pruhoch | 10 áut | 10 |
 | Max. počet čakajúcich celkovo | 40 áut | 33 |
 | Počet čakajúcich na konci | < 20 áut | 9 |
